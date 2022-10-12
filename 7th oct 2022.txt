@@ -1,0 +1,24 @@
+7/10/22
+Few commands:
+GIT process
+1 create new repository
+2 provide valid name
+3 select public repo
+4 finish
+
+GIT COMMANDS.  JECRC_CS(folder name)----
+go to your folder 
+address bar
+enter cmd
+----------------------------------------------------
+
+GIT COMMANDS.
+-------------
+git init     #initialize the GIT folder
+git add .    #add all the files/folders in git folder
+git config user.name "your name"
+git config user.email"youremail@id.com"
+git remote add origin "yourrepolink.git"
+
+git commit -m "anymessage"
+git push -u origin main
