@@ -1,7 +1,8 @@
 import tkinter as ttk
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
+import pandas as pd  
+from PIL import ImageTk,Image
 
 data = pd.read_csv('treadmil-users.csv')
 
@@ -43,12 +44,48 @@ for key, value in values.items():
     ttk.Label(app,text = 'Column3').place(x=150,y=150)
     ttk.OptionMenu(app, *values).place(x= 150, y=180)
 
+##Canvas
+cnv= ttk.Canvas(app, width=200, height=200)
+cnv.place(x= 200, y = 100)
+
+# Label
+result = ttk.Variable(app)
+ttk.Label(app, textvariable=result).place(x=300,y=300)
 
 def show():
-    print(graphs.get())
-    print(col1.get())
-    print(col2.get())
-    print(col3.get())
+    global img
+    global cnv
+
+    column1 = col1.get()
+    column2 = col2.get()
+    column3 = col3.get()
+
+    g = graphs.get()
+    if 'col1' in g:
+        if column1 == 'Select':
+            result.set('column 1 must be selected')
+            return
+    if 'col2' in g:
+        if column2 == 'Select':
+            result.set('column 2 must be selected')
+            return        
+
+    fig = plt.figure(figsize=(5,2))
+    eval(graphs.get().format(col1 = column1, col2 = column2, col3 = column3))
+    fig.savefig('graph.png')
+    img = ImageTk.PhotoImage(
+        Image.open('graph.png').resize((250,200))
+    )
+
+    cnv.create_image(0,0, anchor = ttk.NW, image = img)
+
+
+    #plt.show()
+    #print(graphs.get())
+    #print(col1.get())
+    #print(col2.get())
+    #print(col3.get())
+    
 
 ttk.Button(app, text='Show', command = show).place(x=400,y=10)    
 
